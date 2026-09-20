@@ -1,5 +1,26 @@
 # V4VM 8-bit CPU CORE
 
+## V4VM — 8-bit virtual machine
+
+V4VM — компактная 8-битная виртуальная машина с регулярным RISC-подобным набором команд и 16-битной адресацией кода.
+
+* **Data width:** 8 bit
+* **Address / PC:** 16 bit
+* **Registers:** `A`, `B`, `C`, `D` — 4×8 bit
+* **Temporary register:** `T` — 8 bit
+* **Memory:** 2 KiB code + 2 KiB data
+* **Data stack:** 512 bytes
+* **Return stack:** 256 × 16-bit
+* **Memory addressing:** 8-bit offset + `MEMH` page register
+* **I/O:** 8-bit external ports
+* **Branches:** conditional and relative jumps/calls
+* **Subroutines:** separate return stack
+* **Instruction encoding:** 8-bit opcode; upper 2 bits select the register, lower 6 bits select the operation
+* **Operations:** data movement, arithmetic, logic, comparison, shifts, memory, stack, I/O and control flow
+
+The architecture is designed around a **simple and regular instruction encoding**, making the VM suitable for small interpreters, embedded systems and experimental CPU/FPGA implementations.
+
+
 
 |       | 0         | 1       | 2        | 3   | 4        | 5       | 6        | 7       | 8       | 9     | A         | B         | C          | D        | E         | F          |
 | ----- | --------- | ------- | -------- | --- | -------- | ------- | -------- | ------- | ------- | ----- | --------- | --------- | ---------- | -------- | --------- | ---------- |
@@ -19,3 +40,5 @@
 | **D** | PUSH D    | POP D   | MOV D,T  | —   | AND D,T  | OR D,T  | XOR D,T  | CMP D,0 | CMP D,1 | —     | SHR D     | SHL D     | —          | ADD D,T  | SUB D,T   | CMP D,T    |
 | **E** | INIT D,M8 | IN D,M8 | OUT M8,D | —   | AND D,M8 | OR D,M8 | XOR D,M8 | —       | —       | —     | RMEM D,M8 | WMEM M8,D | —          | ADD D,M8 | SUB D,M8  | CMP D,M8   |
 | **F** | —         | —       | —        | —   | —        | —       | —        | —       | —       | —     | —         | —         | —          | —        | JMPABS/16 | CALLABS/16 |
+
+
